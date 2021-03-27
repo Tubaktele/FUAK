@@ -8209,6 +8209,13 @@ end
 Text = [[⌔ ︙  @LC6BOT   ]]
 send(msg.chat_id_, msg.id_,Text)
 end
+function tdcli_update_callback(data)
+if data.ID == "UpdateNewCallbackQuery" then
+tahaj = data
+local Chat_id = data.chat_id_
+local Msg_id = data.message_id_
+local msg_idd = Msg_id/2097152/0.5
+local Text = data.payload_.data_
 if text == 'تعطيل التحقق' and Addictive(msg) then   
 database:del(bot_id..'FUAK:nwe:mem:group'..msg.chat_id_) 
 send(msg.chat_id_, msg.id_,'\n🔽| تم تعطيل تحقق' ) 
