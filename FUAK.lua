@@ -583,7 +583,7 @@ end
 function Addvoi(msg,chat,vi,ty)
 local eq = json:decode(https.request('https://api.telegram.org/bot'.. token..'/getfile?file_id='..vi)) 
 download_to_file('https://api.telegram.org/file/bot'..token..'/'..eq.result.file_path,ty) 
-sendVoice(msg.chat_id_, msg.id_,'./'..ty,"تم تحويل ال mp3 الى بصمه")
+sendVoice(msg.chat_id_, msg.id_,'./'..ty,"dev by - @U5UUUU")
 os.execute('rm -rf ./'..ty) 
 end
 function Addmp3(msg,chat,kkl,ffrr)
