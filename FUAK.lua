@@ -7733,8 +7733,8 @@ if text == ("تحديث السورس") and DevFUAK(msg) then
 send(msg.chat_id_,msg.id_,'⌔︙تم التحديث')
 os.execute('rm -rf FUAK.lua')
 os.execute('rm -rf start.lua')
-os.execute('wget https://raw.githubusercontent.com/FUAK/FUAK/master/FUAK.lua')
-os.execute('wget https://raw.githubusercontent.com/FUAK/FUAK/master/start.lua')
+os.execute('wget https://raw.githubusercontent.com/Tubaktele/FUAK/master/FUAK.lua')
+os.execute('wget https://raw.githubusercontent.com/Tubaktele/FUAK/master/start.lua')
 dofile('FUAK.lua')  
 return false
 end
@@ -9221,8 +9221,8 @@ if text == "تحديث السورس ⌔" then
 send(msg.chat_id_,msg.id_,'⌔︙تم التحديث')
 os.execute('rm -rf FUAK.lua')
 os.execute('rm -rf start.lua')
-os.execute('wget https://raw.githubusercontent.com/FUAK/FUAK/master/FUAK.lua')
-os.execute('wget https://raw.githubusercontent.com/FUAK/FUAK/master/start.lua')
+os.execute('wget https://raw.githubusercontent.com/Tubaktele/FUAK/master/FUAK.lua')
+os.execute('wget https://raw.githubusercontent.com/Tubaktele/FUAK/master/start.lua')
 dofile('FUAK.lua')  
 return false
 end
