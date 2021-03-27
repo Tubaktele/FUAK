@@ -8170,6 +8170,66 @@ end
 tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
 end
 end
+if text == "all" and Constructor(msg) and not database:get(bot_id..'tgs:bot:api'..msg.chat_id_) then
+if database:get(bot_id.."all:Time"..msg.chat_id_..':'..msg.sender_user_id_) then  
+return 
+send(msg.chat_id_, msg.id_,"انتضر دقيقه من فضلك")
+end
+database:setex(bot_id..'all:Time'..msg.chat_id_..':'..msg.sender_user_id_,300,true)
+tdcli_function({ID="GetChannelFull",channel_id_ = msg.chat_id_:gsub('-100','')},function(argg,dataa) 
+tdcli_function({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub('-100',''), offset_ = 0,limit_ = dataa.member_count_},function(ta,amir)
+x = 0
+tags = 0
+local list = amir.members_
+for k, v in pairs(list) do
+tdcli_function({ID="GetUser",user_id_ = v.user_id_},function(arg,data)
+if x == 5 or x == tags or k == 0 then
+tags = x + 5
+t = "#all"
+end
+x = x + 1
+tagname = data.first_name_
+tagname = tagname:gsub("]","")
+tagname = tagname:gsub("[[]","")
+t = t..", ["..tagname.."](tg://user?id="..v.user_id_..")"
+if x == 5 or x == tags or k == 0 then
+local Text = t:gsub('#all,','#all\n')
+sendText(msg.chat_id_,Text,0,'md')
+end
+end,nil)
+end
+end,nil)
+end,nil)
+end
+if text == "تاك للمشرفين" and DevBot(msg) and not database:get(bot_id..'tgg:bot:api'..msg.chat_id_) then            
+if database:get(bot_id.."FUAK:admin:Time"..msg.chat_id_) then 
+return
+ send(msg.chat_id_, msg.id_,"انتظر دقيقه من فضلك")
+end
+database:setex(bot_id.."FUAK:admin:Time"..msg.chat_id_..':'..msg.sender_user_id_,300,true)
+tdcli_function ({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100",""),filter_ = {ID = "ChannelMembersAdministrators"},offset_ = 0,limit_ = 100 },function(extra,result,success)
+m = 0
+tgad = 0
+local ans = result.members_  
+for k, v in pairs(ans) do
+tdcli_function({ID="GetUser",user_id_ = v.user_id_},function(arg,data)
+if m == 1 or m == tgad or k == 0 then
+tgad = m + 5
+t = "#Admin"
+end
+m = m + 1
+Adminame = data.first_name_
+Adminame = Adminame:gsub("]","")
+Adminame = Adminame:gsub("[[]","")
+t = t..", ["..Adminame.."](tg://user?id="..v.user_id_..")"
+if m == 1 or m == tgad or k == 0 then
+local Text = t:gsub('#Admin,','#Admin\n')
+sendText(msg.chat_id_,Text,msg.id_/2097152/0.5,'md')
+end
+end,nil)
+end
+end,nil)
+end
 if text == "تحديث" and DevFUAK(msg) then
 dofile("FUAK.lua")  
 send(msg.chat_id_, msg.id_, "≼≽ تم التحديث")
@@ -8208,6 +8268,31 @@ return false
 end
 Text = [[⌔ ︙  @LC6BOT   ]]
 send(msg.chat_id_, msg.id_,Text)
+end
+if text == 'الاوامر' or text == 'اوامر' or text == 'الأوامر' then
+if Addictive(msg) then
+local Text =[[
+اهلا بك في سورس [FUAK Team](t.me/FUAKx)
+يمكنك استخدام الاوامر الموجودة 🔽
+]]
+keyboard = {} 
+keyboard.inline_keyboard = {
+{
+{text = 'اوام  الحماية', callback_data=msg.sender_user_id_.."/help1"},{text = 'اوامر الادمنية', callback_data=msg.sender_user_id_.."/help2"},
+},
+{
+{text = 'اوامر المدراء', callback_data=msg.sender_user_id_.."/help3"},{text = 'اوامر المنشئين', callback_data=msg.sender_user_id_.."/help4"},
+},
+{
+{text = 'اوامر المطورين', callback_data=msg.sender_user_id_.."/help5"},
+},
+{
+{text = 'اوامر التعطيل', callback_data=msg.sender_user_id_.."/homeaddrem"},{text = 'اوامر القفل', callback_data=msg.sender_user_id_.."/homelocks"},
+},
+}
+local msg_id = msg.id_/2097152/0.5
+https.request("https://api.telegram.org/bot"..token..'/sendMessage?chat_id=' .. msg.chat_id_ .. '&text=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
+end
 end
 if text == 'الاوامر' and Addictive(msg) then  
 if AddChannel(msg.sender_user_id_) == false then
