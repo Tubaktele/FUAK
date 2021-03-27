@@ -295,13 +295,16 @@ url = url.."&parse_mode=HTML"
 end 
 return s_api(url)  
 end
-function send_inlin_key(chat_id,text,inline,reply_id) 
-local keyboard = {} 
-keyboard.inline_keyboard = inline 
-local send_api = "https://api.telegram.org/bot"..token.."/sendMessage?chat_id="..chat_id.."&text="..URL.escape(text).."&parse_mode=Markdown&disable_web_page_preview=true&reply_markup="..URL.escape(JSON.encode(keyboard)) 
+function send_inline_key(chat_id,text,keyboard,inline,reply_id) 
+local response = {} 
+response.keyboard = keyboard 
+response.inline_keyboard = inline 
+response.resize_keyboard = true 
+response.one_time_keyboard = false 
+response.selective = false  
+local send_api = "https://api.telegram.org/bot"..token.."/sendMessage?chat_id="..chat_id.."&text="..URL.escape(text).."&parse_mode=Markdown&disable_web_page_preview=true&reply_markup="..URL.escape(JSON.encode(response)) 
 if reply_id then 
-local msg_id = reply_id/2097152/0.5
-send_api = send_api.."&reply_to_message_id="..msg_id 
+send_api = send_api.."&reply_to_message_id="..reply_id 
 end 
 return s_api(send_api) 
 end
@@ -324,6 +327,221 @@ local msg_id = reply_id/2097152/0.5
 send_api = send_api.."&reply_to_message_id="..msg_id 
 end 
 return s_api(send_api) 
+end
+function send(chat_id, reply_to_message_id, text)
+local TextParseMode = {ID = "TextParseModeMarkdown"}
+tdcli_function ({ID = "SendMessage",chat_id_ = chat_id,reply_to_message_id_ = reply_to_message_id,disable_notification_ = 1,from_background_ = 1,reply_markup_ = nil,input_message_content_ = {ID = "InputMessageText",text_ = text,disable_web_page_preview_ = 1,clear_draft_ = 0,entities_ = {},parse_mode_ = TextParseMode,},}, dl_cb, nil)
+end
+function DeleteMessage(chat,id)
+tdcli_function ({
+ID="DeleteMessages",
+chat_id_=chat,
+message_ids_=id
+},function(arg,data) 
+end,nil)
+end
+function DeleteMessage_(chat,id,func)
+tdcli_function ({
+ID="DeleteMessages",
+chat_id_=chat,
+message_ids_=id
+},func or dl_cb,nil)
+end
+function getInputFile(file) 
+if file:match("/") then 
+infile = {ID = "InputFileLocal", 
+path_ = file} 
+elseif file:match("^%d+$") then 
+infile = {ID = "InputFileId", 
+id_ = file} 
+else infile = {ID = "InputFilePersistentId", 
+persistent_id_ = file} 
+end 
+return infile 
+end
+function RestrictChat(User_id,Chat_id)
+https.request("https://api.telegram.org/bot"..token.."/restrictChatMember?chat_id="..Chat_id.."&user_id="..User_id)
+end
+function s_api(web) 
+local info, res = https.request(web) 
+local req = json:decode(info) 
+if res ~= 200 then 
+return false 
+end 
+if not req.ok then 
+return false end 
+return req 
+end 
+function sendText(chat_id, text, reply_to_message_id, markdown) 
+send_api = "https://api.telegram.org/bot"..token 
+local url = send_api.."/sendMessage?chat_id=" .. chat_id .. "&text=" .. URL.escape(text) 
+if reply_to_message_id ~= 0 then 
+url = url .. "&reply_to_message_id=" .. reply_to_message_id  
+end 
+if markdown == "md" or markdown == "markdown" then 
+url = url.."&parse_mode=Markdown" 
+elseif markdown == "html" then 
+url = url.."&parse_mode=HTML" 
+end 
+return s_api(url)  
+end
+function send_inline_key(chat_id,text,keyboard,inline,reply_id) 
+local response = {} 
+response.keyboard = keyboard 
+response.inline_keyboard = inline 
+response.resize_keyboard = true 
+response.one_time_keyboard = false 
+response.selective = false  
+local send_api = "https://api.telegram.org/bot"..token.."/sendMessage?chat_id="..chat_id.."&text="..URL.escape(text).."&parse_mode=Markdown&disable_web_page_preview=true&reply_markup="..URL.escape(JSON.encode(response)) 
+if reply_id then 
+send_api = send_api.."&reply_to_message_id="..reply_id 
+end 
+return s_api(send_api) 
+end
+function GetInputFile(file)  
+local file = file or ""   
+if file:match("/") then  
+infile = {ID= "InputFileLocal", path_  = file}  
+elseif file:match("^%d+$") then  
+infile ={ID="InputFileId",id_=file}  
+else infile={ID="InputFilePersistentId",persistent_id_ = file}  
+end 
+return infile 
+end
+function sendPhoto(chat_id,reply_id,photo,caption,func)
+tdcli_function({
+ID="SendMessage",
+chat_id_ = chat_id,
+reply_to_message_id_ = reply_id,
+disable_notification_ = 0,
+from_background_ = 1,
+reply_markup_ = nil,
+input_message_content_ = {
+ID="InputMessagePhoto",
+photo_ = GetInputFile(photo),
+added_sticker_file_ids_ = {},
+width_ = 0,
+height_ = 0,
+caption_ = caption or ""
+}
+},func or dl_cb,nil)
+end
+	
+function sendVoice(chat_id,reply_id,voice,caption,func)
+tdcli_function({
+ID="SendMessage",
+chat_id_ = chat_id,
+reply_to_message_id_ = reply_id,
+disable_notification_ = 0,
+from_background_ = 1,
+reply_markup_ = nil,
+input_message_content_ = {
+ID="InputMessageVoice",
+voice_ = GetInputFile(voice),
+duration_ = "",
+waveform_ = "",
+caption_ = caption or ""
+}},func or dl_cb,nil)
+end
+
+function sendAnimation(chat_id,reply_id,animation,caption,func)
+tdcli_function({
+ID="SendMessage",
+chat_id_ = chat_id,
+reply_to_message_id_ = reply_id,
+disable_notification_ = 0,
+from_background_ = 1,
+reply_markup_ = nil,
+input_message_content_ = {
+ID="InputMessageAnimation",
+animation_ = GetInputFile(animation),
+width_ = 0,
+height_ = 0,
+caption_ = caption or ""
+}},func or dl_cb,nil)
+end
+
+function sendAudio(chat_id,reply_id,audio,title,caption,func)
+tdcli_function({
+ID="SendMessage",
+chat_id_ = chat_id,
+reply_to_message_id_ = reply_id,
+disable_notification_ = 0,
+from_background_ = 1,
+reply_markup_ = nil,
+input_message_content_ = {
+ID="InputMessageAudio",
+audio_ = GetInputFile(audio),
+duration_ = "",
+title_ = title or "",
+performer_ = "",
+caption_ = caption or ""
+}},func or dl_cb,nil)
+end
+
+function sendSticker(chat_id,reply_id,sticker,func)
+tdcli_function({
+ID="SendMessage",
+chat_id_ = chat_id,
+reply_to_message_id_ = reply_id,
+disable_notification_ = 0,
+from_background_ = 1,
+reply_markup_ = nil,
+input_message_content_ = {
+ID="InputMessageSticker",
+sticker_ = GetInputFile(sticker),
+width_ = 0,
+height_ = 0
+}},func or dl_cb,nil)
+end
+
+function sendVideo(chat_id,reply_id,video,caption,func)
+tdcli_function({ 
+ID="SendMessage",
+chat_id_ = chat_id,
+reply_to_message_id_ = reply_id,
+disable_notification_ = 0,
+from_background_ = 0,
+reply_markup_ = nil,
+input_message_content_ = {
+ID="InputMessageVideo",  
+video_ = GetInputFile(video),
+added_sticker_file_ids_ = {},
+duration_ = 0,
+width_ = 0,
+height_ = 0,
+caption_ = caption or ""
+}},func or dl_cb,nil)
+end
+
+
+function sendDocument(chat_id,reply_id,document,caption,func)
+tdcli_function({
+ID="SendMessage",
+chat_id_ = chat_id,
+reply_to_message_id_ = reply_id,
+disable_notification_ = 0,
+from_background_ = 1,
+reply_markup_ = nil,
+input_message_content_ = {
+ID="InputMessageDocument",
+document_ = GetInputFile(document),
+caption_ = caption
+}},func or dl_cb,nil)
+end
+function Kick_Group(chat,user)
+tdcli_function ({
+ID = "ChangeChatMemberStatus",
+chat_id_ = chat,
+user_id_ = user,
+status_ = {ID = "ChatMemberStatusKicked"},},function(arg,data) end,nil)
+end
+function Reply_Status(msg,user_id,status,text)
+tdcli_function ({ID = "GetUser",user_id_ = user_id},function(arg,data) 
+if data.first_name_ ~= false then
+local UserName = (data.username_ or "DDDDiD")
+for FUAK in string.gmatch(data.first_name_, "[^%s]+") do
+data.first_name_ = FUAK
 end
 function send_inline_key(chat_id,text,keyboard,inline,reply_id) 
 local response = {} 
@@ -7423,7 +7641,7 @@ name = string.gsub(name,"👨‍⌔","👩‍⌔👩‍⌔👩‍⌔👩‍⌔�
 name = string.gsub(name,"👩‍🍳","👨‍🍳👨‍🍳👨‍🍳👨‍🍳👨‍🍳👩‍🍳👨‍🍳👨‍🍳👨‍🍳")
 name = string.gsub(name,"🧚‍♀","🧚‍♂🧚‍♂🧚‍♂🧚‍♂🧚‍♀🧚‍♂🧚‍♂")
 name = string.gsub(name,"🧜‍♂","🧜‍♀🧜‍♀🧜‍♀🧜‍♀🧜‍♀🧚‍♂🧜‍♀🧜‍♀🧜‍♀")
-name = string.gsub(name,"🧝‍♂","🧝‍♀🧝‍♀🧝‍♀🧝‍♀🧝‍♀🧝‍♂🧝‍♀🧝‍♀🧝‍♀")
+name = string.gsub(name,"🧝‍♂","🧝‍♀🧝‍♀🧝‍♀🧝‍♀🧝‍♀??‍♂🧝‍♀🧝‍♀🧝‍♀")
 name = string.gsub(name,"🙍‍♂️","🙎‍♂️🙎‍♂️🙎‍♂️🙎‍♂️🙎‍♂️🙍‍♂️🙎‍♂️🙎‍♂️🙎‍♂️")
 name = string.gsub(name,"🧖‍♂️","🧖‍♀️🧖‍♀️🧖‍♀️🧖‍♀️🧖‍♀️🧖‍♂️🧖‍♀️🧖‍♀️🧖‍♀️🧖‍♀️")
 name = string.gsub(name,"👬","👭👭👭👭👭👬👭👭👭")
