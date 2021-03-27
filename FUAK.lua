@@ -19,10 +19,10 @@ print("\27[34m"..[[
 
 ]].."\27[m")
 
-io.popen("mkdir KAREBO_Files")
+io.popen("mkdir FUAK_Files")
 t = "\27[35m".."\nAll Files Started : \n____________________\n"..'\27[m'
 i = 0
-for v in io.popen('ls KAREBO_Files'):lines() do
+for v in io.popen('ls FUAK_Files'):lines() do
 if v:match(".lua$") then
 i = i + 1
 t = t.."\27[39m"..i.."\27[36m".." - \27[10;32m"..v..",\27[m \n"
