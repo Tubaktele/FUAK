@@ -10,7 +10,7 @@ chmod +x ts
 get() {
 rm -fr FUAK.lua
 rm -fr sudo.lua
-wget "https://raw.githubusercontent.com/FUAK-Team/FUAK/main/FUAK.lua"
+wget "https://raw.githubusercontent.com/Tubaktele/FUAK/master/FUAK.lua"
 lua start.lua
 }
 installall(){

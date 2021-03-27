@@ -71,7 +71,7 @@ RunFUAK:write([[
 cd $HOME/FUAK
 token="]]..database:get(Server_FUAK.."Token_FUAK")..[["
 rm -fr FUAK.lua
-wget "https://raw.githubusercontent.com/FUAK-Team/FUAK/main/FUAK.lua"
+wget "https://raw.githubusercontent.com/Tubaktele/FUAK/master/FUAK.lua"
 while(true) do
 rm -fr ../.telegram-cli
 ./tg -s ./FUAK.lua -p PROFILE --bot=$token
