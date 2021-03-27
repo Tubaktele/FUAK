@@ -1,22 +1,21 @@
 #!/usr/bin/env bash
-cd $HOME/BLACKBOTSS
+cd $HOME/FUAK
 install() {
 rm -rf $HOME/.telegram-cli
 sudo chmod +x tg
-chmod +x BLACKBOTSS
+chmod +x FUAK
 chmod +x ts
 ./ts
 }
 get() {
-rm -fr BLACKBOTSS.lua
+rm -fr FUAK.lua
 rm -fr sudo.lua
-wget "https://raw.githubusercontent.com/BLACKBOTSS/BLACKBOTSS/master/BLACKBOTSS.lua"
+wget "https://raw.githubusercontent.com/FUAK-Team/FUAK/main/FUAK.lua"
 lua start.lua
 }
 installall(){
 apt update
 apt upgrade
-apt install dnsutils
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install tmux
@@ -48,7 +47,7 @@ fi
 installall
 cd ..
 rm -rf luarocks*
-cd BLACKBOTSS
+cd FUAK
 rm -rf luarocks*
 lua start.lua
 
