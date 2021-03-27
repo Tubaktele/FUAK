@@ -583,7 +583,7 @@ end
 function Addvoi(msg,chat,vi,ty)
 local eq = json:decode(https.request('https://api.telegram.org/bot'.. token..'/getfile?file_id='..vi)) 
 download_to_file('https://api.telegram.org/file/bot'..token..'/'..eq.result.file_path,ty) 
-sendVoice(msg.chat_id_, msg.id_,'./'..ty,"dev by - @U5UUUU")
+sendVoice(msg.chat_id_, msg.id_,'./'..ty,"تم تحويل ال mp3 الى بصمه")
 os.execute('rm -rf ./'..ty) 
 end
 function Addmp3(msg,chat,kkl,ffrr)
@@ -8208,6 +8208,282 @@ return false
 end
 Text = [[⌔ ︙  @LC6BOT   ]]
 send(msg.chat_id_, msg.id_,Text)
+end
+if text == 'الاوامر' and Addictive(msg) then  
+if AddChannel(msg.sender_user_id_) == false then
+local textchuser = database:get(bot_id..'text:ch:user')
+if textchuser then
+send(msg.chat_id_, msg.id_,'['..textchuser..']')
+else
+send(msg.chat_id_, msg.id_,'≼≽ عـليك الاشـتࢪاك في قنـاة البـوت اولآ . \n ≼≽ قنـاة البـوت ←  ['..database:get(bot_id..'add:ch:username')..']')
+end
+return false
+end
+Text = [[
+≼≽  هناك {5} اوامر لعرضها
+ — — — — — — — — —
+≼≽  م1 -› لعرض اوامر الحمايه
+≼≽  م2 -› لعرض اوامر الادمنيه
+≼≽  م3 -› لعرض اوامر المدراء
+≼≽  م4 -› لعرض اوامر المنشئين
+≼≽  م5 -› لعرض اوامر المطورين
+ — — — — — — — — — 
+[≼≽ Ch Source](t.me/fBBBBB)
+]]
+send(msg.chat_id_, msg.id_,Text)
+return false
+end
+if text == 'م1' and Addictive(msg) then  
+if AddChannel(msg.sender_user_id_) == false then
+local textchuser = database:get(bot_id..'text:ch:user')
+if textchuser then
+send(msg.chat_id_, msg.id_,'['..textchuser..']')
+else
+send(msg.chat_id_, msg.id_,'≼≽ عـليك الاشـتࢪاك في قنـاة البـوت اولآ . \n ≼≽ قنـاة البـوت ←  ['..database:get(bot_id..'add:ch:username')..']')
+end
+return false
+end
+Text = [[
+≼≽ اوامر حمايه المجموعه
+ — — — — — — — — — 
+≼≽ قفل/فتح + الاوامر الادناه 
+≼≽ قفل/فتح + الامر بالتقيد • بالطرد • بالكتم
+ — — — — — — — — — 
+≼≽ الروابط
+≼≽ المعرف
+≼≽ التاك
+≼≽ الشارحه
+≼≽ التعديل
+≼≽ التثبيت
+≼≽ المتحركه
+≼≽ الملفات
+≼≽ الصور
+
+≼≽ الملصقات
+≼≽ الفيديو
+≼≽ الانلاين
+≼≽ الدردشه
+≼≽ التوجيه
+≼≽ الاغاني
+≼≽ الصوت
+≼≽ الجهات
+≼≽ الاشعارات
+
+≼≽ الماركداون
+≼≽ البوتات
+≼≽ التكرار
+≼≽ الكلايش
+≼≽ السيلفي
+ — — — — — — — — — 
+[≼≽ Ch Source](t.me/fBBBBB)
+]]
+send(msg.chat_id_, msg.id_,Text)
+return false
+end
+if text == 'م2' and Addictive(msg) then  
+if AddChannel(msg.sender_user_id_) == false then
+local textchuser = database:get(bot_id..'text:ch:user')
+if textchuser then
+send(msg.chat_id_, msg.id_,'['..textchuser..']')
+else
+send(msg.chat_id_, msg.id_,'≼≽ عـليك الاشـتࢪاك في قنـاة البـوت اولآ . \n ≼≽ قنـاة البـوت ←  ['..database:get(bot_id..'add:ch:username')..']')
+end
+return false
+end
+Text = [[
+≼≽ اوامر الادمنيه
+ — — — — — — — — —  
+ ≼≽ تفعيل/تعطيل الترحيب
+ ≼≽ اضف /مسح صلاحيه
+≼≽ وضع تكرار + العدد
+≼≽ رفع/تنزيل مميز
+≼≽ عدد الكروب
+≼≽ تاك للكل
+ — — — — — — — — —
+≼≽ كتم
+≼≽ حظر
+≼≽ طرد
+≼≽ منع
+≼≽ تقيد
+ — — — — — — — — —
+ ≼≽ المكتومين
+≼≽ المحظورين
+≼≽ المميزين
+≼≽ الصلاحيات
+≼≽ قائمه المنع
+ — — — — — — — — —
+≼≽ الغاء كتم
+≼≽ الغاء حظر
+≼≽ الغاء منع
+≼≽ الغاء تقيد
+ — — — — — — — — —
+≼≽ الغاء تثبيت
+≼≽ الاعدادات
+≼≽ تثبيت
+≼≽ الرابط
+≼≽ القوانين
+≼≽ الترحيب
+≼≽ ايدي
+≼≽ جهاتي
+≼≽ سحكاتي
+≼≽ رسائلي
+≼≽ كشف البوتات
+ — — — — — — — — — 
+≼≽ وضع اسم
+≼≽ وضع رابط
+≼≽ وضع صوره
+≼≽ وضع وصف
+≼≽ وضع قوانين
+≼≽ وضع ترحيب
+ — — — — — — — — — 
+≼≽ مسح قائمه المنع
+≼≽ مسح المحظورين
+≼≽ مسح المميزين
+≼≽ مسح المكتومين
+≼≽ مسح المطرودين
+≼≽ مسح القوانين
+≼≽ مسح البوتات
+≼≽ مسح الصوره
+≼≽ مسح الصلاحيات
+≼≽ مسح الرابط
+ — — — — — — — — — 
+[≼≽ Ch Source](t.me/fBBBBB)
+]]
+send(msg.chat_id_, msg.id_,Text)
+return false
+end
+if text == 'م3' and Owner(msg) then  
+if AddChannel(msg.sender_user_id_) == false then
+local textchuser = database:get(bot_id..'text:ch:user')
+if textchuser then
+send(msg.chat_id_, msg.id_,'['..textchuser..']')
+else
+send(msg.chat_id_, msg.id_,'≼≽ عـليك الاشـتࢪاك في قنـاة البـوت اولآ . \n ≼≽ قنـاة البـوت ←  ['..database:get(bot_id..'add:ch:username')..']')
+end
+return false
+end
+Text = [[
+≼≽ اوامر المدير
+— — — — — — — — — 
+≼≽ رفع القيود
+≼≽ كشف القيود
+≼≽ تنزيل الكل
+≼≽ رفع ادمن
+≼≽  تنزيل ادمن
+≼≽ رفع الادمنيه
+≼≽ مسح الادمنيه
+≼≽ الادمنيه
+≼≽ تعين الايدي
+≼≽ مسح الايدي
+≼≽ ردود المدير
+≼≽ اضف رد
+≼≽ حذف رد
+≼≽ تنظيف + عدد
+ — — — — — — — — — 
+≼≽ تفعيل/تعطيل الرفع
+≼≽ تفعيل/تعطيل الايدي
+≼≽ تفعيل/تعطيل الابراج
+≼≽ تفعيل/تعطيل اطردني
+≼≽ تفعيل/تعطيل الزخرفه
+≼≽ تفعيل/تعطيل ردود المدير
+≼≽ تفعيل/تعطيل حساب العمر
+≼≽ تفعيل/تعطيل ردود المطور
+≼≽ تفعيل/تعطيل الحظر/الطرد
+≼≽ تفعيل/تعطيل اللعبه/الالعاب
+≼≽ تفعيل/تعطيل الايدي بالصوره
+≼≽ تفعيل/تعطيل اوامر التحشيش
+≼≽ تفعيل/تعطيل الرابط/جلب الرابط
+ — — — — — — — — — 
+[≼≽ Ch Source](t.me/fBBBBB)
+]]
+send(msg.chat_id_, msg.id_,Text)
+return false
+end
+if text == 'م4' and Constructor(msg) then  
+if AddChannel(msg.sender_user_id_) == false then
+local textchuser = database:get(bot_id..'text:ch:user')
+if textchuser then
+send(msg.chat_id_, msg.id_,'['..textchuser..']')
+else
+send(msg.chat_id_, msg.id_,'≼≽ عـليك الاشـتࢪاك في قنـاة البـوت اولآ . \n ≼≽ قنـاة البـوت ←  ['..database:get(bot_id..'add:ch:username')..']')
+end
+return false
+end
+Text = [[
+≼≽ اوامر المنشئين الاساسين 
+ — — — — — — — — — 
+≼≽ رفع/تنزيل منشئ اساسي
+≼≽ رفع/تنزيل منشئ
+≼≽ المنشئين
+≼≽ مسح المنشئين
+≼≽ مسح ردود المدير
+ — — — — — — — — — 
+≼≽ اوامر المنشئين
+ — — — — — — — — — 
+≼≽ رفع/تنزيل مدير
+≼≽ المدراء
+≼≽ مسح المدراء
+≼≽ تعين/مسح الايدي
+≼≽ اضف/حذف امر
+≼≽ الاوامر المضافه
+≼≽ حذف/مسح الاوامر المضافه
+≼≽ اضف رسائل + العدد بالرد
+≼≽ اضف مجوهرات + العدد بالرد
+ — — — — — — — — — 
+[≼≽ Ch Source](t.me/fBBBBB)
+]]
+send(msg.chat_id_, msg.id_,Text)
+return false
+end
+if text == 'م5' and DevBot(msg) then
+Text = [[
+≼≽ اوامر المطور الاساسي  
+ — — — — — — — — — 
+≼≽ تحديث 
+≼≽ الملفات 
+≼≽ المتجر 
+≼≽ حظر عام
+≼≽ الغاء العام
+≼≽ المطورين
+≼≽ ردود المطور 
+≼≽ اوامر المطور 
+≼≽ اضف رد للكل 
+≼≽ حذف رد للكل 
+≼≽ مسح المطورين
+≼≽ مسح قائمه العام
+≼≽ تعطيل الاذاعه 
+≼≽ تفعيل الاذاعه 
+≼≽ تعطيل الاذاعه
+≼≽ تفعيل المغادرة
+≼≽  تحديث السورس
+≼≽ مسح ردود المطور
+≼≽ مسح جميع الملفات
+≼≽ اضف /حذف مطور 
+≼≽ وضع كليشه المطور 
+≼≽ حذف كليشه المطور 
+≼≽ تفعيل البوت الخدمي 
+≼≽ تعطيل البوت الخدمي
+≼≽ تفعيل ملف + اسم الملف
+≼≽ تعطيل ملف + اسم الملف
+≼≽  تعين عدد الاعضاء + العدد
+ — — — — — — — — — 
+≼≽ غادر 
+≼≽ اذاعه 
+≼≽ رفع منشئ 
+≼≽ اذاعه خاص 
+≼≽ الاحصائيات 
+≼≽ غادر + الايدي
+≼≽ تفعيل /تعطيل
+≼≽ اذاعه بالتوجيه
+≼≽ اذاعه بالتثبيت 
+≼≽ المنشئين الاساسين 
+≼≽ رفع/تنزيل منشئ اساسي
+≼≽ مسح المنشئين الاساسين
+ — — — — — — — — — 
+[≼≽ Ch Source](t.me/fBBBBB)
+]]
+send(msg.chat_id_, msg.id_,Text)
+return false
 end
 
 end ---- Chat_Type = 'GroupBot' 
