@@ -4545,6 +4545,67 @@ else
 send(msg.chat_id_, msg.id_,"≼≽ لا يوجد رابط ارسل ضع رابط")              
 end            
 end
+if text == "تاك للمشرفين" and DevBot(msg) and not database:get(bot_id..'tgg:bot:api'..msg.chat_id_) then            
+if database:get(bot_id.."FUAK:admin:Time"..msg.chat_id_) then 
+return
+ send(msg.chat_id_, msg.id_,"انتظر دقيقه من فضلك")
+end
+database:setex(bot_id.."FUAK:admin:Time"..msg.chat_id_..':'..msg.sender_user_id_,300,true)
+tdcli_function ({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100",""),filter_ = {ID = "ChannelMembersAdministrators"},offset_ = 0,limit_ = 100 },function(extra,result,success)
+m = 0
+tgad = 0
+local ans = result.members_  
+for k, v in pairs(ans) do
+tdcli_function({ID="GetUser",user_id_ = v.user_id_},function(arg,data)
+if m == 1 or m == tgad or k == 0 then
+tgad = m + 5
+t = "#Admin"
+end
+m = m + 1
+Adminame = data.first_name_
+Adminame = Adminame:gsub("]","")
+Adminame = Adminame:gsub("[[]","")
+t = t..", ["..Adminame.."](tg://user?id="..v.user_id_..")"
+if m == 1 or m == tgad or k == 0 then
+local Text = t:gsub('#Admin,','#Admin\n')
+sendText(msg.chat_id_,Text,msg.id_/2097152/0.5,'md')
+end
+end,nil)
+end
+end,nil)
+end
+
+if text == "all" and Constructor(msg) and not database:get(bot_id..'tgs:bot:api'..msg.chat_id_) then
+if database:get(bot_id.."all:Time"..msg.chat_id_..':'..msg.sender_user_id_) then  
+return 
+send(msg.chat_id_, msg.id_,"انتضر دقيقه من فضلك")
+end
+database:setex(bot_id..'all:Time'..msg.chat_id_..':'..msg.sender_user_id_,300,true)
+tdcli_function({ID="GetChannelFull",channel_id_ = msg.chat_id_:gsub('-100','')},function(argg,dataa) 
+tdcli_function({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub('-100',''), offset_ = 0,limit_ = dataa.member_count_},function(ta,amir)
+x = 0
+tags = 0
+local list = amir.members_
+for k, v in pairs(list) do
+tdcli_function({ID="GetUser",user_id_ = v.user_id_},function(arg,data)
+if x == 5 or x == tags or k == 0 then
+tags = x + 5
+t = "#all"
+end
+x = x + 1
+tagname = data.first_name_
+tagname = tagname:gsub("]","")
+tagname = tagname:gsub("[[]","")
+t = t..", ["..tagname.."](tg://user?id="..v.user_id_..")"
+if x == 5 or x == tags or k == 0 then
+local Text = t:gsub('#all,','#all\n')
+sendText(msg.chat_id_,Text,0,'md')
+end
+end,nil)
+end
+end,nil)
+end,nil)
+end
 if text == "مسح الرابط" or text == "حذف الرابط" then
 if AddChannel(msg.sender_user_id_) == false then
 local textchuser = database:get(bot_id..'text:ch:user')
@@ -8170,66 +8231,6 @@ end
 tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
 end
 end
-if text == "all" and Constructor(msg) and not database:get(bot_id..'tgs:bot:api'..msg.chat_id_) then
-if database:get(bot_id.."all:Time"..msg.chat_id_..':'..msg.sender_user_id_) then  
-return 
-send(msg.chat_id_, msg.id_,"انتضر دقيقه من فضلك")
-end
-database:setex(bot_id..'all:Time'..msg.chat_id_..':'..msg.sender_user_id_,300,true)
-tdcli_function({ID="GetChannelFull",channel_id_ = msg.chat_id_:gsub('-100','')},function(argg,dataa) 
-tdcli_function({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub('-100',''), offset_ = 0,limit_ = dataa.member_count_},function(ta,amir)
-x = 0
-tags = 0
-local list = amir.members_
-for k, v in pairs(list) do
-tdcli_function({ID="GetUser",user_id_ = v.user_id_},function(arg,data)
-if x == 5 or x == tags or k == 0 then
-tags = x + 5
-t = "#all"
-end
-x = x + 1
-tagname = data.first_name_
-tagname = tagname:gsub("]","")
-tagname = tagname:gsub("[[]","")
-t = t..", ["..tagname.."](tg://user?id="..v.user_id_..")"
-if x == 5 or x == tags or k == 0 then
-local Text = t:gsub('#all,','#all\n')
-sendText(msg.chat_id_,Text,0,'md')
-end
-end,nil)
-end
-end,nil)
-end,nil)
-end
-if text == "تاك للمشرفين" and DevBot(msg) and not database:get(bot_id..'tgg:bot:api'..msg.chat_id_) then            
-if database:get(bot_id.."FUAK:admin:Time"..msg.chat_id_) then 
-return
- send(msg.chat_id_, msg.id_,"انتظر دقيقه من فضلك")
-end
-database:setex(bot_id.."FUAK:admin:Time"..msg.chat_id_..':'..msg.sender_user_id_,300,true)
-tdcli_function ({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100",""),filter_ = {ID = "ChannelMembersAdministrators"},offset_ = 0,limit_ = 100 },function(extra,result,success)
-m = 0
-tgad = 0
-local ans = result.members_  
-for k, v in pairs(ans) do
-tdcli_function({ID="GetUser",user_id_ = v.user_id_},function(arg,data)
-if m == 1 or m == tgad or k == 0 then
-tgad = m + 5
-t = "#Admin"
-end
-m = m + 1
-Adminame = data.first_name_
-Adminame = Adminame:gsub("]","")
-Adminame = Adminame:gsub("[[]","")
-t = t..", ["..Adminame.."](tg://user?id="..v.user_id_..")"
-if m == 1 or m == tgad or k == 0 then
-local Text = t:gsub('#Admin,','#Admin\n')
-sendText(msg.chat_id_,Text,msg.id_/2097152/0.5,'md')
-end
-end,nil)
-end
-end,nil)
-end
 if text == "تحديث" and DevFUAK(msg) then
 dofile("FUAK.lua")  
 send(msg.chat_id_, msg.id_, "≼≽ تم التحديث")
@@ -8269,361 +8270,281 @@ end
 Text = [[⌔ ︙  @LC6BOT   ]]
 send(msg.chat_id_, msg.id_,Text)
 end
-if text == 'الاوامر' or text == 'اوامر' or text == 'الأوامر' then
-if Addictive(msg) then
-local Text =[[
-اهلا بك في سورس [FUAK Team](t.me/FUAKx)
-يمكنك استخدام الاوامر الموجودة 🔽
+if text == 'الاوامر' and Addictive(msg) then  
+if AddChannel(msg.sender_user_id_) == false then
+local textchuser = database:get(bot_id..'text:ch:user')
+if textchuser then
+send(msg.chat_id_, msg.id_,'['..textchuser..']')
+else
+send(msg.chat_id_, msg.id_,'≼≽ عـليك الاشـتࢪاك في قنـاة البـوت اولآ . \n ≼≽ قنـاة البـوت ←  ['..database:get(bot_id..'add:ch:username')..']')
+end
+return false
+end
+Text = [[
+≼≽  هناك {5} اوامر لعرضها
+ — — — — — — — — —
+≼≽  م1 -› لعرض اوامر الحمايه
+≼≽  م2 -› لعرض اوامر الادمنيه
+≼≽  م3 -› لعرض اوامر المدراء
+≼≽  م4 -› لعرض اوامر المنشئين
+≼≽  م5 -› لعرض اوامر المطورين
+ — — — — — — — — — 
+[≼≽ Ch Source](t.me/fBBBBB)
 ]]
-keyboard = {} 
-keyboard.inline_keyboard = {
-{
-{text = 'اوام  الحماية', callback_data=msg.sender_user_id_.."/help1"},{text = 'اوامر الادمنية', callback_data=msg.sender_user_id_.."/help2"},
-},
-{
-{text = 'اوامر المدراء', callback_data=msg.sender_user_id_.."/help3"},{text = 'اوامر المنشئين', callback_data=msg.sender_user_id_.."/help4"},
-},
-{
-{text = 'اوامر المطورين', callback_data=msg.sender_user_id_.."/help5"},
-},
-{
-{text = 'اوامر التعطيل', callback_data=msg.sender_user_id_.."/homeaddrem"},{text = 'اوامر القفل', callback_data=msg.sender_user_id_.."/homelocks"},
-},
-}
-local msg_id = msg.id_/2097152/0.5
-https.request("https://api.telegram.org/bot"..token..'/sendMessage?chat_id=' .. msg.chat_id_ .. '&text=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
+send(msg.chat_id_, msg.id_,Text)
+return false
 end
+if text == 'م1' and Addictive(msg) then  
+if AddChannel(msg.sender_user_id_) == false then
+local textchuser = database:get(bot_id..'text:ch:user')
+if textchuser then
+send(msg.chat_id_, msg.id_,'['..textchuser..']')
+else
+send(msg.chat_id_, msg.id_,'≼≽ عـليك الاشـتࢪاك في قنـاة البـوت اولآ . \n ≼≽ قنـاة البـوت ←  ['..database:get(bot_id..'add:ch:username')..']')
 end
-function tdcli_update_callback(data)
-if data.ID == "UpdateNewCallbackQuery" then
-tahaj = data
-local Chat_id = data.chat_id_
-local Msg_id = data.message_id_
-local msg_idd = Msg_id/2097152/0.5
-local Text = data.payload_.data_
-if Text and Text:match('(.*)/help1') and Addictive(tahaj) then
-if tonumber(Text:match('(.*)/help1')) == tonumber(data.sender_user_id_) then
-local Teext =[[
-📮|  اوامر حمايه المجموعه
-⎯ ⎯ ⎯ ⎯
-⏺| قفل/فتح + الاوامر الادناه 
-⏺| قفل/فتح + الامر بالتقيد • بالطرد • بالكتم
-⎯ ⎯ ⎯ ⎯
-🔐| الروابط
-🔐| المعرف
-🔐| التاك
-🔐| الشارحه
-🔐| التعديل
-🔐| التثبيت
-🔐| المتحركه
-🔐| الملفات
-🔐| الصور
+return false
+end
+Text = [[
+≼≽ اوامر حمايه المجموعه
+ — — — — — — — — — 
+≼≽ قفل/فتح + الاوامر الادناه 
+≼≽ قفل/فتح + الامر بالتقيد • بالطرد • بالكتم
+ — — — — — — — — — 
+≼≽ الروابط
+≼≽ المعرف
+≼≽ التاك
+≼≽ الشارحه
+≼≽ التعديل
+≼≽ التثبيت
+≼≽ المتحركه
+≼≽ الملفات
+≼≽ الصور
 
-🔐| الملصقات
-🔐| الفيديو
-🔐| الانلاين
-🔐| الدردشه
-🔐| التوجيه
-🔐| الاغاني
-🔐| الصوت
-🔐| الجهات
-🔐| الاشعارات
+≼≽ الملصقات
+≼≽ الفيديو
+≼≽ الانلاين
+≼≽ الدردشه
+≼≽ التوجيه
+≼≽ الاغاني
+≼≽ الصوت
+≼≽ الجهات
+≼≽ الاشعارات
 
-🔐| الماركداون
-🔐| البوتات
-🔐| التكرار
-🔐| الكلايش
-🔐| السيلفي
-⎯ ⎯ ⎯ ⎯
-📡| Ch ~⪼ [@FUAKX]
+≼≽ الماركداون
+≼≽ البوتات
+≼≽ التكرار
+≼≽ الكلايش
+≼≽ السيلفي
+ — — — — — — — — — 
+[≼≽ Ch Source](t.me/fBBBBB)
 ]]
-keyboard = {} 
-keyboard.inline_keyboard = {
-{
-{text = 'اوامر الحماية', callback_data=data.sender_user_id_.."/help1"},{text = 'اوامر الادمنية', callback_data=data.sender_user_id_.."/help2"},
-},
-{
-{text = 'اوامر المدراء', callback_data=data.sender_user_id_.."/help3"},{text = 'اوامر المنشئين', callback_data=data.sender_user_id_.."/help4"},
-},
-{
-{text = 'اوامر المطورين', callback_data=data.sender_user_id_.."/help5"},
-},
-{
-{text = 'اوامر التعطيل', callback_data=data.sender_user_id_.."/homeaddrem"},{text = 'اوامر القفل', callback_data=data.sender_user_id_.."/homelocks"},
-},
-}
-return https.request("https://api.telegram.org/bot"..token..'/editMessageText?chat_id='..Chat_id..'&text='..URL.escape(Teext)..'&message_id='..msg_idd..'&parse_mode=markdown&disable_web_page_preview=true&reply_markup='..JSON.encode(keyboard)) 
+send(msg.chat_id_, msg.id_,Text)
+return false
 end
+if text == 'م2' and Addictive(msg) then  
+if AddChannel(msg.sender_user_id_) == false then
+local textchuser = database:get(bot_id..'text:ch:user')
+if textchuser then
+send(msg.chat_id_, msg.id_,'['..textchuser..']')
+else
+send(msg.chat_id_, msg.id_,'≼≽ عـليك الاشـتࢪاك في قنـاة البـوت اولآ . \n ≼≽ قنـاة البـوت ←  ['..database:get(bot_id..'add:ch:username')..']')
 end
-if Text and Text:match('(.*)/help2') and Addictive(tahaj) then
-if tonumber(Text:match('(.*)/help2')) == tonumber(data.sender_user_id_) then
-local Teext =[[
-🥈| اوامر الادمنيه
-⎯ ⎯ ⎯ ⎯
-▶️| رفع/تنزيل مميز
-📮| تاك للكل
-📮| عدد الكروب
-🚫| كتم
-🚷| حظر
-🚷| طرد
-🚫| منع
-🚫| تقيد
-⏺| الغاء حظر
-⏺| الغاء كتم
-⏺| الغاء تقيد
-⏺| الغاء منع
-📋| المحظورين
-📋| المكتومين
-📋| المميزين
-📋| الصلاحيات
-📋| قائمه المنع
-
-〽| تثبيت
-⏺| الغاء تثبيت
-📄| الاعدادات
-
-🗳| الرابط
-📃| القوانين
-
-👋🏻| الترحيب
-👋🏻| تفعيل/تعطيل الترحيب
-⚠️| اضف /مسح صلاحيه 
-⚠️| وضع تكرار + العدد
-💭| ايدي
-💭| جهاتي
-💭| سحكاتي
-💭| رسائلي
-💭| كشف البوتات
-⎯ ⎯ ⎯ ⎯
-🔘| وضع + الاوامر الادناه
-⎯ ⎯ ⎯ ⎯
-📝| اسم
-📝| رابط
-📝| صوره
-📝| وصف
-📝| قوانين
-??| ترحيب
-⎯ ⎯ ⎯ ⎯
-🗑| مسح + الاوامر الادناه
-⎯ ⎯ ⎯ ⎯
-📮| قائمه المنع
-📮| المحظورين
-📮| المميزين
-📮| المكتومين
-📮| المطرودين
-📮| القوانين
-📮| البوتات
-📮| الصوره
-📮| الصلاحيات
-📮| الرابط
-⎯ ⎯ ⎯ ⎯
-📡| CH [@FUAKX]
+return false
+end
+Text = [[
+≼≽ اوامر الادمنيه
+ — — — — — — — — —  
+ ≼≽ تفعيل/تعطيل الترحيب
+ ≼≽ اضف /مسح صلاحيه
+≼≽ وضع تكرار + العدد
+≼≽ رفع/تنزيل مميز
+≼≽ عدد الكروب
+≼≽ تاك للكل
+ — — — — — — — — —
+≼≽ كتم
+≼≽ حظر
+≼≽ طرد
+≼≽ منع
+≼≽ تقيد
+ — — — — — — — — —
+ ≼≽ المكتومين
+≼≽ المحظورين
+≼≽ المميزين
+≼≽ الصلاحيات
+≼≽ قائمه المنع
+ — — — — — — — — —
+≼≽ الغاء كتم
+≼≽ الغاء حظر
+≼≽ الغاء منع
+≼≽ الغاء تقيد
+ — — — — — — — — —
+≼≽ الغاء تثبيت
+≼≽ الاعدادات
+≼≽ تثبيت
+≼≽ الرابط
+≼≽ القوانين
+≼≽ الترحيب
+≼≽ ايدي
+≼≽ جهاتي
+≼≽ سحكاتي
+≼≽ رسائلي
+≼≽ كشف البوتات
+ — — — — — — — — — 
+≼≽ وضع اسم
+≼≽ وضع رابط
+≼≽ وضع صوره
+≼≽ وضع وصف
+≼≽ وضع قوانين
+≼≽ وضع ترحيب
+ — — — — — — — — — 
+≼≽ مسح قائمه المنع
+≼≽ مسح المحظورين
+≼≽ مسح المميزين
+≼≽ مسح المكتومين
+≼≽ مسح المطرودين
+≼≽ مسح القوانين
+≼≽ مسح البوتات
+≼≽ مسح الصوره
+≼≽ مسح الصلاحيات
+≼≽ مسح الرابط
+ — — — — — — — — — 
+[≼≽ Ch Source](t.me/fBBBBB)
 ]]
-keyboard = {} 
-keyboard.inline_keyboard = {
-{
-{text = 'اوامر الحماية', callback_data=data.sender_user_id_.."/help1"},{text = 'اوامر الادمنية', callback_data=data.sender_user_id_.."/help2"},
-},
-{
-{text = 'اوامر المدراء', callback_data=data.sender_user_id_.."/help3"},{text = 'اوامر المنشئين', callback_data=data.sender_user_id_.."/help4"},
-},
-{
-{text = 'اوامر المطورين', callback_data=data.sender_user_id_.."/help5"},
-},
-{
-{text = 'اوامر التعطيل', callback_data=data.sender_user_id_.."/homeaddrem"},{text = 'اوامر القفل', callback_data=data.sender_user_id_.."/homelocks"},
-},
-}
-return https.request("https://api.telegram.org/bot"..token..'/editMessageText?chat_id='..Chat_id..'&text='..URL.escape(Teext)..'&message_id='..msg_idd..'&parse_mode=markdown&disable_web_page_preview=true&reply_markup='..JSON.encode(keyboard)) 
+send(msg.chat_id_, msg.id_,Text)
+return false
 end
+if text == 'م3' and Owner(msg) then  
+if AddChannel(msg.sender_user_id_) == false then
+local textchuser = database:get(bot_id..'text:ch:user')
+if textchuser then
+send(msg.chat_id_, msg.id_,'['..textchuser..']')
+else
+send(msg.chat_id_, msg.id_,'≼≽ عـليك الاشـتࢪاك في قنـاة البـوت اولآ . \n ≼≽ قنـاة البـوت ←  ['..database:get(bot_id..'add:ch:username')..']')
 end
-if Text and Text:match('(.*)/help3') and Owner(tahaj) then
-if tonumber(Text:match('(.*)/help3')) == tonumber(data.sender_user_id_) then
-local Teext =[[
-🥇|  اوامر المدراء
-⎯ ⎯ ⎯ ⎯
-↕️| رفع/تنزيل ادمن
-↕️| رفع/كشف القيود
-↕️| تنزيل الكل
-
-💬| تفعيل/تعطيل الايدي بالصوره
-💬| تفعيل/تعطيل الايدي
-💬| تفعيل/تعطيل ردود المطور
-💬| تفعيل/تعطيل اللعبه/الالعاب
-💬| تفعيل/تعطيل ردود المدير
-💬| تفعيل/تعطيل اطردني
-💬| تفعيل/تعطيل الرفع
-💬| تفعيل/تعطيل الحظر/الطرد
-💬| تفعيل/تعطيل الرابط/جلب الرابط
-💬| تفعيل/تعطيل اوامر التحشيش
-
-♨️| تعين/مسح الايدي
-
-🖇| رفع الادمنيه
-🖇| اضف/حذف رد
-📋| الادمنيه
-📋| ردود المدير
-
-🗑| تنظيف + عدد
-🗑| مسح الادمنيه
-🗑| مسح ردود المدير
-⎯ ⎯ ⎯ ⎯
-🔘| لتغير ردود الايدي :- 
-تغير رد المطور + النص
-تغير رد المنشئ الاساسي + النص
-تغير رد المنشئ + النص
-تغير رد المدير + النص
-تغير رد الادمن + النص
-تغير رد المميز + النص
-تغير رد العضو + النص
-⎯ ⎯ ⎯ ⎯
-📡| CH [@FUAKX]
+return false
+end
+Text = [[
+≼≽ اوامر المدير
+— — — — — — — — — 
+≼≽ رفع القيود
+≼≽ كشف القيود
+≼≽ تنزيل الكل
+≼≽ رفع ادمن
+≼≽  تنزيل ادمن
+≼≽ رفع الادمنيه
+≼≽ مسح الادمنيه
+≼≽ الادمنيه
+≼≽ تعين الايدي
+≼≽ مسح الايدي
+≼≽ ردود المدير
+≼≽ اضف رد
+≼≽ حذف رد
+≼≽ تنظيف + عدد
+ — — — — — — — — — 
+≼≽ تفعيل/تعطيل الرفع
+≼≽ تفعيل/تعطيل الايدي
+≼≽ تفعيل/تعطيل الابراج
+≼≽ تفعيل/تعطيل اطردني
+≼≽ تفعيل/تعطيل الزخرفه
+≼≽ تفعيل/تعطيل ردود المدير
+≼≽ تفعيل/تعطيل حساب العمر
+≼≽ تفعيل/تعطيل ردود المطور
+≼≽ تفعيل/تعطيل الحظر/الطرد
+≼≽ تفعيل/تعطيل اللعبه/الالعاب
+≼≽ تفعيل/تعطيل الايدي بالصوره
+≼≽ تفعيل/تعطيل اوامر التحشيش
+≼≽ تفعيل/تعطيل الرابط/جلب الرابط
+ — — — — — — — — — 
+[≼≽ Ch Source](t.me/fBBBBB)
 ]]
-keyboard = {} 
-keyboard.inline_keyboard = {
-{
-{text = 'اوامر الحماية', callback_data=data.sender_user_id_.."/help1"},{text = 'اوامر الادمنية', callback_data=data.sender_user_id_.."/help2"},
-},
-{
-{text = 'اوامر المدراء', callback_data=data.sender_user_id_.."/help3"},{text = 'اوامر المنشئين', callback_data=data.sender_user_id_.."/help4"},
-},
-{
-{text = 'اوامر المطورين', callback_data=data.sender_user_id_.."/help5"},
-},
-{
-{text = 'اوامر التعطيل', callback_data=data.sender_user_id_.."/homeaddrem"},{text = 'اوامر القفل', callback_data=data.sender_user_id_.."/homelocks"},
-},
-}
-return https.request("https://api.telegram.org/bot"..token..'/editMessageText?chat_id='..Chat_id..'&text='..URL.escape(Teext)..'&message_id='..msg_idd..'&parse_mode=markdown&disable_web_page_preview=true&reply_markup='..JSON.encode(keyboard)) 
+send(msg.chat_id_, msg.id_,Text)
+return false
 end
+if text == 'م4' and Constructor(msg) then  
+if AddChannel(msg.sender_user_id_) == false then
+local textchuser = database:get(bot_id..'text:ch:user')
+if textchuser then
+send(msg.chat_id_, msg.id_,'['..textchuser..']')
+else
+send(msg.chat_id_, msg.id_,'≼≽ عـليك الاشـتࢪاك في قنـاة البـوت اولآ . \n ≼≽ قنـاة البـوت ←  ['..database:get(bot_id..'add:ch:username')..']')
 end
-if Text and Text:match('(.*)/help4') and Constructor(tahaj) then
-if tonumber(Text:match('(.*)/help4')) == tonumber(data.sender_user_id_) then
-local Teext =[[
-🏅| اوامر المنشئين الاساسين 
-⎯ ⎯ ⎯ ⎯
-↕️| رفع/تنزيل منشئ
-↕️| المنشئين
-🗑| مسح المنشئين
-
-🏅| اوامر المنشئين
-⎯ ⎯ ⎯ ⎯
-↕️| رفع/تنزيل مدير
-↕️| المدراء
-🗑| مسح المدراء
-🔘| تعين/مسح الايدي
-➕| اضف/حذف امر
-➕| الاوامر المضافه
-➕| حذف/مسح الاوامر المضافه
-➕| اضف رسائل + العدد بالرد
-➕| اضف مجوهرات + العدد بالرد
-⎯ ⎯ ⎯ ⎯
-📡| CH [@FUAKX]
+return false
+end
+Text = [[
+≼≽ اوامر المنشئين الاساسين 
+ — — — — — — — — — 
+≼≽ رفع/تنزيل منشئ اساسي
+≼≽ رفع/تنزيل منشئ
+≼≽ المنشئين
+≼≽ مسح المنشئين
+≼≽ مسح ردود المدير
+ — — — — — — — — — 
+≼≽ اوامر المنشئين
+ — — — — — — — — — 
+≼≽ رفع/تنزيل مدير
+≼≽ المدراء
+≼≽ مسح المدراء
+≼≽ تعين/مسح الايدي
+≼≽ اضف/حذف امر
+≼≽ الاوامر المضافه
+≼≽ حذف/مسح الاوامر المضافه
+≼≽ اضف رسائل + العدد بالرد
+≼≽ اضف مجوهرات + العدد بالرد
+ — — — — — — — — — 
+[≼≽ Ch Source](t.me/fBBBBB)
 ]]
-keyboard = {} 
-keyboard.inline_keyboard = {
-{
-{text = 'اوامر الحماية', callback_data=data.sender_user_id_.."/help1"},{text = 'اوامر الادمنية', callback_data=data.sender_user_id_.."/help2"},
-},
-{
-{text = 'اوامر المدراء', callback_data=data.sender_user_id_.."/help3"},{text = 'اوامر المنشئين', callback_data=data.sender_user_id_.."/help4"},
-},
-{
-{text = 'اوامر المطورين', callback_data=data.sender_user_id_.."/help5"},
-},
-{
-{text = 'اوامر التعطيل', callback_data=data.sender_user_id_.."/homeaddrem"},{text = 'اوامر القفل', callback_data=data.sender_user_id_.."/homelocks"},
-},
-}
-return https.request("https://api.telegram.org/bot"..token..'/editMessageText?chat_id='..Chat_id..'&text='..URL.escape(Teext)..'&message_id='..msg_idd..'&parse_mode=markdown&disable_web_page_preview=true&reply_markup='..JSON.encode(keyboard)) 
+send(msg.chat_id_, msg.id_,Text)
+return false
 end
-end
-if Text and Text:match('(.*)/help5') and DevBot(tahaj) then
-if tonumber(Text:match('(.*)/help5')) == tonumber(data.sender_user_id_) then
-local Teext =[[
-👁‍🗨| اوامر المطور الاساسي  
-⎯ ⎯ ⎯ ⎯
-↕️| حظر عام
-↕️| الغاء العام
-🗑| مسح قائمه العام
-🚧| تغير اسم البوت
-📥| اضف /حذف مطور 
-👁‍🗨| المطورين
-🗑| مسح المطورين
-📋| اضف/حذف رد للكل 
-📋| مسح ردود المطور
-📋| ردود المطور 
-📋| وضع /حذف كليشه المطور 
-
-☑️| تحديث  + تحديث السورس 
-
-📥| تفعيل/تعطيل البوت الخدمي 
-📥|  تعين عدد الاعضاء + العدد
-📥| تفعيل/تعطيل المغادرة
-📥| تفعيل/تعطيل الاذاعه 
-📥| تفعيل/تعطيل ملف + اسم الملف
-📈| الملفات 
-🗑| مسح جميع الملفات 
-📄| المتجر 
-🏅| اوامر المطور 
-⎯ ⎯ ⎯ ⎯
-👁‍🗨| تفعيل /تعطيل
-
-↕️| رفع/تنزيل منشئ اساسي
-↕️| رفع منشئ 
-🗑| مسح المنشئين الاساسين
-🔘| المنشئين الاساسين 
-➕| غادر 
-➕| غادر + الايدي
-➕| اذاعه 
-➕| اذاعه بالتوجيه
-➕| اذاعه خاص 
-➕| اذاعه بالتثبيت 
-➕| الاحصائيات 
-⎯ ⎯ ⎯ ⎯
-📡| CH [@FUAKX]
+if text == 'م5' and DevBot(msg) then
+Text = [[
+≼≽ اوامر المطور الاساسي  
+ — — — — — — — — — 
+≼≽ تحديث 
+≼≽ الملفات 
+≼≽ المتجر 
+≼≽ حظر عام
+≼≽ الغاء العام
+≼≽ المطورين
+≼≽ ردود المطور 
+≼≽ اوامر المطور 
+≼≽ اضف رد للكل 
+≼≽ حذف رد للكل 
+≼≽ مسح المطورين
+≼≽ مسح قائمه العام
+≼≽ تعطيل الاذاعه 
+≼≽ تفعيل الاذاعه 
+≼≽ تعطيل الاذاعه
+≼≽ تفعيل المغادرة
+≼≽  تحديث السورس
+≼≽ مسح ردود المطور
+≼≽ مسح جميع الملفات
+≼≽ اضف /حذف مطور 
+≼≽ وضع كليشه المطور 
+≼≽ حذف كليشه المطور 
+≼≽ تفعيل البوت الخدمي 
+≼≽ تعطيل البوت الخدمي
+≼≽ تفعيل ملف + اسم الملف
+≼≽ تعطيل ملف + اسم الملف
+≼≽  تعين عدد الاعضاء + العدد
+ — — — — — — — — — 
+≼≽ غادر 
+≼≽ اذاعه 
+≼≽ رفع منشئ 
+≼≽ اذاعه خاص 
+≼≽ الاحصائيات 
+≼≽ غادر + الايدي
+≼≽ تفعيل /تعطيل
+≼≽ اذاعه بالتوجيه
+≼≽ اذاعه بالتثبيت 
+≼≽ المنشئين الاساسين 
+≼≽ رفع/تنزيل منشئ اساسي
+≼≽ مسح المنشئين الاساسين
+ — — — — — — — — — 
+[≼≽ Ch Source](t.me/fBBBBB)
 ]]
-keyboard = {} 
-keyboard.inline_keyboard = {
-{
-{text = 'اوامر الحماية', callback_data=data.sender_user_id_.."/help1"},{text = 'اوامر الادمنية', callback_data=data.sender_user_id_.."/help2"},
-},
-{
-{text = 'اوامر المدراء', callback_data=data.sender_user_id_.."/help3"},{text = 'اوامر المنشئين', callback_data=data.sender_user_id_.."/help4"},
-},
-{
-{text = 'اوامر المطورين', callback_data=data.sender_user_id_.."/help5"},
-},
-{
-{text = 'اوامر التعطيل', callback_data=data.sender_user_id_.."/homeaddrem"},{text = 'اوامر القفل', callback_data=data.sender_user_id_.."/homelocks"},
-},
-}
-return https.request("https://api.telegram.org/bot"..token..'/editMessageText?chat_id='..Chat_id..'&text='..URL.escape(Teext)..'&message_id='..msg_idd..'&parse_mode=markdown&disable_web_page_preview=true&reply_markup='..JSON.encode(keyboard)) 
-end
-end
-if Text and Text:match('(.*)/help') and Addictive(tahaj) then
-if tonumber(Text:match('(.*)/help')) == tonumber(data.sender_user_id_) then
-local Teext =[[
-اهلا بك في سورس [FUAK TeAm](t.me/FUAKx)
-يمكنك استخدام الاوامر الموجودة 🔽
-]]
-keyboard = {} 
-keyboard.inline_keyboard = {
-{
-{text = 'اوامر الحماية', callback_data=data.sender_user_id_.."/help1"},{text = 'اوامر الادمنية', callback_data=data.sender_user_id_.."/help2"},
-},
-{
-{text = 'اوامر المدراء', callback_data=data.sender_user_id_.."/help3"},{text = 'اوامر المنشئين', callback_data=data.sender_user_id_.."/help4"},
-},
-{
-{text = 'اوامر المطورين', callback_data=data.sender_user_id_.."/help5"},
-},
-{
-{text = 'اوامر التعطيل', callback_data=data.sender_user_id_.."/homeaddrem"},{text = 'اوامر القفل', callback_data=data.sender_user_id_.."/homelocks"},
-},
-}
-return https.request("https://api.telegram.org/bot"..token..'/editMessageText?chat_id='..Chat_id..'&text='..URL.escape(Teext)..'&message_id='..msg_idd..'&parse_mode=markdown&disable_web_page_preview=true&reply_markup='..JSON.encode(keyboard)) 
-end
+send(msg.chat_id_, msg.id_,Text)
+return false
 end
 
 end ---- Chat_Type = 'GroupBot' 
