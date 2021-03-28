@@ -7147,20 +7147,20 @@ end
 sendText(Id_Sudo,Text..'\n'..'≼≽ ~ ['..string.sub(data.first_name_,0, 40)..'](tg://user?id='..data.id_..')',0,'md') 
 end,nil);end,nil);end,nil);end,nil);end 
 if DevFUAK(msg) then
-if text == 'تفعيل التواصل ≼≽' then  
+if text == '≼≽ تفعيل التواصل' then  
 database:del(bot_id..'Texting:In:Bv') 
 send(msg.chat_id_, msg.id_,'≼≽ تم تفعيل التواصل ') 
 end
-if text == 'تعطيل التواصل ≼≽' then  
+if text == '≼≽ تعطيل التواصل' then  
 database:set(bot_id..'Texting:In:Bv',true) 
 send(msg.chat_id_, msg.id_,'≼≽ تم تعطيل التواصل ') 
 end
-if text =='الاحصائيات ≼≽' then
+if text =='≼≽ الاحصائيات' then
 local Groups = database:scard(bot_id..'FUAK:Chek:Groups')  
 local Users = database:scard(bot_id..'FUAK:UsersBot')  
 send(msg.chat_id_, msg.id_,'≼≽ احصائيات البوت \n\n≼≽ عدد المجموعات *~ '..Groups..'\n≼≽ عدد المشتركين ~ '..Users..'*')
 end
-if text == "تنظيف المشتركين ≼≽" then
+if text == "≼≽ تنظيف المشتركين" then
 local pv = database:smembers(bot_id..'FUAK:UsersBot')  
 local sendok = 0
 for i = 1, #pv do
@@ -7186,7 +7186,7 @@ end,nil)
 end
 return false
 end
-if text == "تنظيف الكروبات ≼≽" then
+if text == "≼≽ تنظيف الكروبات" then
 local group = database:smembers(bot_id..'FUAK:Chek:Groups')  
 local w = 0
 local q = 0
@@ -7235,11 +7235,11 @@ end,nil)
 end
 return false
 end
-if text =='تغيير المطور الاساسي ≼≽' and VIP_DeV(msg) then
+if text =='≼≽ تغيير المطور الاساسي' and VIP_DeV(msg) then
 send(msg.chat_id_, msg.id_,'≼≽ ارسل ايدي المطور الاساسي الجديد')
 database:set(bot_id..'LACKBOTSS:Ed:DevBots',true) 
 end
-if text =='تغيير المطور الاساسي ≼≽' and not VIP_DeV(msg) then
+if text =='≼≽ تغيير المطور الاساسي' and not VIP_DeV(msg) then
 send(msg.chat_id_, msg.id_,'≼≽ تسرسح')
 end
 if database:get(bot_id.."LACKBOTSS:Ed:DevBots") then
@@ -7260,15 +7260,15 @@ A:close()
 database:del(bot_id.."LACKBOTSS:Ed:DevBots")
 end
 end
-if text == 'تفعيل البوت الخدمي ≼≽' then
+if text == '≼≽ تفعيل البوت الخدمي' then
 database:del(bot_id..'FUAK:Free:Add:Bots') 
 send(msg.chat_id_, msg.id_,'\n≼≽ تم تفعيل البوت الخدمي ') 
 end
-if text == 'تعطيل البوت الخدمي ≼≽' then
+if text == '≼≽ تعطيل البوت الخدمي' then
 database:set(bot_id..'FUAK:Free:Add:Bots',true) 
 send(msg.chat_id_, msg.id_,'\n≼≽ تم تعطيل البوت الخدمي') 
 end
-if text=="اذاعه خاص ≼≽" and msg.reply_to_message_id_ == 0 then
+if text=="≼≽ اذاعه خاص" and msg.reply_to_message_id_ == 0 then
 if database:get(bot_id.."FUAK:Status:Bc") and not DevFUAK(msg) then 
 send(msg.chat_id_, msg.id_,"≼≽ الاذاعه معطله من قبل المطور الاساسي")
 return false
@@ -7278,7 +7278,7 @@ send(msg.chat_id_, msg.id_,"≼≽ ارسل لي سواء ~ { ملصق, متحر
 return false
 end 
 
-if text=="اذاعه ≼≽" and msg.reply_to_message_id_ == 0 then
+if text=="≼≽ اذاعه" and msg.reply_to_message_id_ == 0 then
 if database:get(bot_id.."FUAK:Status:Bc") and not DevFUAK(msg) then 
 send(msg.chat_id_, msg.id_,"≼≽ الاذاعه معطله من قبل المطور الاساسي")
 return false
@@ -7287,7 +7287,7 @@ database:setex(bot_id.."FUAK:FUAK:Bc:Grops" .. msg.chat_id_ .. ":" .. msg.sender
 send(msg.chat_id_, msg.id_,"≼≽ ارسل لي سواء ~ { ملصق, متحركه, صوره, رساله }\n≼≽ للخروج ارسل الغاء ") 
 return false
 end  
-if text=="اذاعه بالتوجيه ≼≽" and msg.reply_to_message_id_ == 0  then
+if text=="≼≽ اذاعه بالتوجيه" and msg.reply_to_message_id_ == 0  then
 if database:get(bot_id.."FUAK:Status:Bc") and not DevFUAK(msg) then 
 send(msg.chat_id_, msg.id_,"≼≽ الاذاعه معطله من قبل المطور الاساسي")
 return false
@@ -7296,7 +7296,7 @@ database:setex(bot_id.."FUAK:FUAK:Fwd:Grops" .. msg.chat_id_ .. ":" .. msg.sende
 send(msg.chat_id_, msg.id_,"≼≽ ارسل لي التوجيه الان") 
 return false
 end 
-if text=="اذاعه بالتوجيه خاص ≼≽" and msg.reply_to_message_id_ == 0  then
+if text=="≼≽ اذاعه بالتوجيه خاص" and msg.reply_to_message_id_ == 0  then
 if database:get(bot_id.."FUAK:Status:Bc") and not DevFUAK(msg) then 
 send(msg.chat_id_, msg.id_,"≼≽ الاذاعه معطله من قبل المطور الاساسي")
 return false
@@ -7305,28 +7305,28 @@ database:setex(bot_id.."FUAK:FUAK:Fwd:Pv" .. msg.chat_id_ .. ":" .. msg.sender_u
 send(msg.chat_id_, msg.id_,"≼≽ ارسل لي التوجيه الان") 
 return false
 end 
-if text == "تفعيل الاذاعه ≼≽" then
+if text == "≼≽ تفعيل الاذاعه" then
 database:del(bot_id.."FUAK:Status:Bc") 
 send(msg.chat_id_, msg.id_,"\n≼≽ تم تفعيل الاذاعه " ) 
 return false
 end 
-if text == "تعطيل الاذاعه ≼≽" then
+if text == "≼≽ تعطيل الاذاعه" then
 database:set(bot_id.."FUAK:Status:Bc",true) 
 send(msg.chat_id_, msg.id_,"\n≼≽ تم تعطيل الاذاعه") 
 return false
 end 
-if text == "تفعيل المغادره ≼≽" then
+if text == "≼≽ تفعيل المغادره" then
 database:del(bot_id.."FUAK:Left:Bot"..msg.chat_id_)  
 send(msg.chat_id_, msg.id_,"≼≽ تم تفعيل مغادرة البوت") 
 return false 
 end
-if text == "تعطيل المغادره ≼≽" then
+if text == "≼≽ تعطيل المغادره" then
 database:set(bot_id.."FUAK:Left:Bot"..msg.chat_id_,true)   
 send(msg.chat_id_, msg.id_, "≼≽ تم تعطيل مغادرة البوت") 
 return false 
 end
 if text and database:get(bot_id..'Start:Bots') then
-if text == 'الغاء ≼≽' then   
+if text == '≼≽ الغاء' then   
 send(msg.chat_id_, msg.id_,"≼≽ تم الغاء حفظ كليشه ستارت") 
 database:del(bot_id..'Start:Bots') 
 return false
@@ -7336,25 +7336,25 @@ send(msg.chat_id_, msg.id_,'≼≽ تم حفظ كليشه ستارت')
 database:del(bot_id..'Start:Bots') 
 return false
 end
-if text == 'ضع كليشه ستارت ≼≽' then
+if text == '≼≽ ضع كليشه ستارت' then
 database:set(bot_id..'Start:Bots',true) 
 send(msg.chat_id_, msg.id_,'≼≽ ارسل لي الكليشه الان') 
 return false
 end
-if text == 'حذف كليشه ستارت ≼≽' then
+if text == '≼≽ حذف كليشه ستارت' then
 database:del(bot_id..'Start:Bot') 
 send(msg.chat_id_, msg.id_,'≼≽ تم حذف كليشه ستارت') 
 end
-if text == ("مسح قائمه العام ≼≽") and DevFUAK(msg) then
+if text == ("≼≽ مسح قائمه العام") and DevFUAK(msg) then
 database:del(bot_id.."FUAK:GBan:User")
 send(msg.chat_id_, msg.id_, "\n≼≽ تم مسح قائمه العام")
 return false
 end
-if text == ("مسح المطورين ≼≽") and DevFUAK(msg) then
+if text == ("≼≽ مسح المطورين") and DevFUAK(msg) then
 database:del(bot_id.."FUAK:Sudo:User")
 send(msg.chat_id_, msg.id_, "\n≼≽ تم مسح قائمة المطورين  ")
 end
-if text == ("قائمه العام ≼≽") and DevFUAK(msg) then
+if text == ("≼≽ قائمه العام") and DevFUAK(msg) then
 local list = database:smembers(bot_id.."FUAK:GBan:User")
 t = "\n≼≽ قائمة المحظورين عام \n — — — — — — — — — \n"
 for k,v in pairs(list) do
@@ -7371,7 +7371,7 @@ end
 send(msg.chat_id_, msg.id_, t)
 return false
 end
-if text == ("المطورين ≼≽") and DevFUAK(msg) then
+if text == ("≼≽ المطورين") and DevFUAK(msg) then
 local list = database:smembers(bot_id.."FUAK:Sudo:User")
 t = "\n≼≽ قائمة مطورين البوت \n — — — — — — — — — \n"
 for k,v in pairs(list) do
@@ -7387,7 +7387,7 @@ t = "≼≽ لا يوجد مطورين"
 end
 send(msg.chat_id_, msg.id_, t)
 end
-if text == 'جلب نسخه احتياطيه ≼≽' then
+if text == '≼≽ جلب نسخه احتياطيه' then
 local list = database:smembers(bot_id..'FUAK:Chek:Groups')  
 local t = '{"BOT_ID": '..bot_id..',"GP_BOT":{'  
 for k,v in pairs(list) do   
@@ -7454,7 +7454,7 @@ File:write(t)
 File:close()
 sendDocument(msg.chat_id_, msg.id_,'./File_Libs/'..bot_id..'.json', '≼≽ عدد مجموعات التي في البوت { '..#list..'}')
 end
-if text == "تحديث السورس ≼≽" then
+if text == "≼≽ تحديث السورس" then
 send(msg.chat_id_,msg.id_,'≼≽ تم التحديث')
 os.execute('rm -rf FUAK.lua')
 os.execute('rm -rf start.lua')
@@ -7463,7 +7463,7 @@ os.execute('wget https://raw.githubusercontent.com/Tubaktele/FUAK/master/start.l
 dofile('FUAK.lua')  
 return false
 end
-if text == "تحديث الملفات ≼≽" then
+if text == "≼≽ تحديث الملفات" then
 dofile("FUAK.lua")  
 send(msg.chat_id_, msg.id_, "≼≽ تم التحديث")
 end
